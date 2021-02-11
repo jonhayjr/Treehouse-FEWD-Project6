@@ -67,16 +67,58 @@ const checkWin = () => {
 
     const startOverlay = document.querySelector('div.start');
     const title = document.querySelector('.title');
+    const resetText = 'Reset Game';
 
     if (letterTotal === showTotal) {
         startOverlay.className = 'win';
         title.textContent = 'You won!!!!!';
         startOverlay.style.display = 'flex';
+        startButton.textContent = resetText;
     } else if (missed > 4) {
         startOverlay.className = 'lose';
         title.textContent = 'You lost!!!';
         startOverlay.style.display = 'flex';
+        startButton.textContent = resetText;
     }
+}
+
+//Reset Game  
+const resetGame = () => {
+        //Remove show class from display   
+        const letterDisplay = document.querySelectorAll('#phrase li');
+        for (let i = 0; i < letterDisplay.length; i++) {
+            letterDisplay[i].classList.remove('show');
+        }
+        //Remove chosen class from buttons   
+        const letterButton = document.querySelectorAll('.keyrow button');
+        for (let i = 0; i < letterButton.length; i++) {
+            letterButton[i].className = '';
+        }
+        //Generate random word and add to display
+        const randomPhrase = getRandomPhraseAsArray(phrases);
+        addPhraseToDisplay(randomPhrase);
+
+        //Reset score   
+        missed = 0;
+
+        //Reset scoreboard hearts
+        const ol = document.querySelector('ol');
+        const tries = document.querySelectorAll('ol li');
+        const triesLength = tries.length;
+        console.log(triesLength);
+        if (triesLength < 5) {
+            for (let i = 0; i < 5 - tries.length; i++) {
+                const li = document.createElement('li');
+                const image = document.createElement('img');
+                li.className = 'tries';
+                image.src = 'images/liveHeart.png';
+                image.height = '35';
+                image.width = '30';
+                li.appendChild(image);
+                ol.appendChild(li);
+            }
+        }
+
 }
 
 
@@ -84,6 +126,9 @@ const checkWin = () => {
 startButton.addEventListener('click', () => {
     const startScreen = document.querySelector('#overlay');
     startScreen.style.display = 'none';
+    if (startButton.textContent === 'Reset Game') {
+        resetGame();
+    }
 });
 
 //list for the onscreen keyboard to be clicked
