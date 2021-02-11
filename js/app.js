@@ -5,9 +5,9 @@ let missed = 0;
 const phrases = [
 'New York',
 'Santa Claus',
-'Professor',
-'Javascript',
-'Rocky Balboa'
+'Zac Efron',
+'Web Developer',
+'Newport Beach'
 ];
 
 //return a random phrase from an array
@@ -26,7 +26,7 @@ const addPhraseToDisplay = arr => {
         const li = document.createElement('li');
         const ul = phrase.firstElementChild;
         li.textContent = arr[i];
-        if (li !== '') {
+        if (li.textContent !== ' ') {
             li.className = 'letter';
         } else {
             li.className = 'space';
@@ -55,9 +55,17 @@ const checkLetter = button => {
 //check if the game has been won or lost
 const checkWin = () => {
     const letter = document.querySelectorAll('.letter');
-    const letterTotal = letter.length;
+    let letterTotal = 0;
+    for (let i = 0; i < letter.length; i++) {
+    
+        if (letter[i].textContent !== ' ') {
+            letterTotal ++;
+        }
+    }
+    
     const show = document.querySelectorAll('.show');
     const showTotal = show.length;
+    
     const startOverlay = document.querySelector('div.start');
     const title = document.querySelector('.title');
 
