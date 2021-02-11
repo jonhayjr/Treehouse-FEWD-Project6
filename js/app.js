@@ -4,7 +4,7 @@ const startButton = document.querySelector('.btn__reset');
 let missedGuesses = 0;
 const phrases = [
 'New York',
-'Santa Clause',
+'Santa Claus',
 'Professor',
 'Javascript',
 'Rocky Balboa'
@@ -12,8 +12,12 @@ const phrases = [
 
 //return a random phrase from an array
 const getRandomPhraseAsArray = arr => {
-
+    const randomNumber = Math.floor(Math.random() * arr.length);
+    const randomPhrase = arr[randomNumber];
+    return randomPhrase;
 }
+
+getRandomPhraseAsArray(phrases);
 
 //adds the letters of a string to the display   
 const addPhraseToDisplay = arr => {
