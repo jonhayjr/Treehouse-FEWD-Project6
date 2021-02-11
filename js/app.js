@@ -17,12 +17,24 @@ const getRandomPhraseAsArray = arr => {
     return randomPhrase;
 }
 
-getRandomPhraseAsArray(phrases);
+const randomPhrase = getRandomPhraseAsArray(phrases);
 
 //adds the letters of a string to the display   
 const addPhraseToDisplay = arr => {
-
+    for (let i = 0; i < arr.length; i++) {
+        const li = document.createElement('li');
+        const ul = phrase.firstElementChild;
+        li.textContent = arr[i];
+        if (li !== '') {
+            li.className = 'letter';
+        } else {
+            li.className = 'space';
+        }
+        ul.appendChild(li);
+    }
 }
+
+addPhraseToDisplay(randomPhrase);
 
 //check if a letter is in the phrase
 const checkLetter = button => {
