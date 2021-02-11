@@ -103,23 +103,14 @@ const resetGame = () => {
 
         //Reset scoreboard hearts
         const ol = document.querySelector('ol');
-        const tries = document.querySelectorAll('ol li');
-        const triesLength = tries.length;
-        console.log(triesLength);
-        if (triesLength < 5) {
-            for (let i = 0; i < 5 - tries.length; i++) {
-                const li = document.createElement('li');
-                const image = document.createElement('img');
-                li.className = 'tries';
-                image.src = 'images/liveHeart.png';
-                image.height = '35';
-                image.width = '30';
-                li.appendChild(image);
-                ol.appendChild(li);
+        
+        let html = '';
+            for (let i = 0; i < 5; i++) {
+               html += '<li class="tries"><img src="images/liveHeart.png" height="35px" width="30px"></li>';
             }
+            ol.innerHTML = html;
         }
 
-}
 
 
 //listen for the start game button to be pressed   
