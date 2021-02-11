@@ -7,7 +7,13 @@ const phrases = [
 'Santa Claus',
 'Zac Efron',
 'Web Developer',
-'Newport Beach'
+'Newport Beach',
+'Tom Brady',
+'Github', 
+'Javascript',
+'Santa Barbara',
+'John Cena',
+'Fast and Furious'
 ];
 
 //return a random phrase from an array
@@ -55,17 +61,10 @@ const checkLetter = button => {
 //check if the game has been won or lost
 const checkWin = () => {
     const letter = document.querySelectorAll('.letter');
-    let letterTotal = 0;
-    for (let i = 0; i < letter.length; i++) {
-    
-        if (letter[i].textContent !== ' ') {
-            letterTotal ++;
-        }
-    }
-    
+    const letterTotal = letter.length;
     const show = document.querySelectorAll('.show');
     const showTotal = show.length;
-    
+
     const startOverlay = document.querySelector('div.start');
     const title = document.querySelector('.title');
 
