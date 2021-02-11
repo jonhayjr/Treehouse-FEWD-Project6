@@ -98,18 +98,29 @@ const resetGame = () => {
         const randomPhrase = getRandomPhraseAsArray(phrases);
         addPhraseToDisplay(randomPhrase);
 
-        //Reset score   
-        missed = 0;
-
-        //Reset scoreboard hearts
-        const ol = document.querySelector('ol');
+    
+         //Reset scoreboard hearts
+         const ol = document.querySelector('ol'); 
+         const tries = document.querySelectorAll('ol li');
+         const triesLength = tries.length;
+    
+         if (triesLength < 5) {
+             for (let i = 0; i < 5 - tries.length; i++) {
+                 const li = document.createElement('li');
+                 const image = document.createElement('img');
+                 li.className = 'tries';
+                 image.src = 'images/liveHeart.png';
+                 image.height = '35';
+                 image.width = '30';
+                 li.appendChild(image);
+                 ol.appendChild(li);
+             }
+         }
+         //Reset score   
+         missed = 0;
+    
+         };
         
-        let html = '';
-            for (let i = 0; i < 5; i++) {
-               html += '<li class="tries"><img src="images/liveHeart.png" height="35px" width="30px"></li>';
-            }
-            ol.innerHTML = html;
-        }
 
 
 
@@ -140,4 +151,3 @@ qwerty.addEventListener('click', e=> {
         checkWin();
     }
 });
-
