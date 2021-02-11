@@ -54,9 +54,24 @@ const checkLetter = button => {
 
 //check if the game has been won or lost
 const checkWin = () => {
+    const letter = document.querySelectorAll('.letter');
+    const letterTotal = letter.length;
+    const show = document.querySelectorAll('.show');
+    const showTotal = show.length;
+    const startOverlay = document.querySelector('div.start');
+    const title = document.querySelector('.title');
 
-
+    if (letterTotal === showTotal) {
+        startOverlay.className = 'win';
+        title.textContent = 'You won!!!!!';
+        startOverlay.style.display = 'flex';
+    } else if (missed > 4) {
+        startOverlay.className = 'lose';
+        title.textContent = 'You lost!!!';
+        startOverlay.style.display = 'flex';
+    }
 }
+
 
 //listen for the start game button to be pressed   
 startButton.addEventListener('click', () => {
@@ -75,7 +90,11 @@ qwerty.addEventListener('click', e=> {
             const ol = document.querySelector('ol');
             const lastHeart = ol.lastElementChild;
             missed ++;
-            ol.removeChild(lastHeart);
+            if (lastHeart) {
+                ol.removeChild(lastHeart); 
+            }
         }
+        checkWin();
     }
 });
+
