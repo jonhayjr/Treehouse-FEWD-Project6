@@ -2,6 +2,7 @@ const qwerty = document.querySelector('#qwerty');
 const phrase = document.querySelector('#phrase');
 const startButton = document.querySelector('.btn__reset');
 const h3 = document.createElement('h3');
+const totalHearts = 5;
 let missed = 0;
 const phrases = [
 'New York',
@@ -134,12 +135,12 @@ const resetGame = () => {
         //Remove show class from display   
         const letterDisplay = document.querySelectorAll('#phrase li');
         for (let i = 0; i < letterDisplay.length; i++) {
-            letterDisplay[i].classList.remove('show');
+            letterDisplay[i].className = '';
         }
         //Remove chosen class from buttons   
         const letterButton = document.querySelectorAll('.keyrow button');
         for (let i = 0; i < letterButton.length; i++) {
-            letterButton[i].classList.remove('chosen');
+            letterButton[i].className = '';
         }
         //Generate random word and add to display
         const randomPhrase = getRandomPhraseAsArray(phrases);
@@ -147,29 +148,29 @@ const resetGame = () => {
 
     
          //Reset scoreboard hearts
-         const ol = document.querySelector('ol'); 
-         const tries = document.querySelectorAll('ol li');
+         const scoreboardOL = document.querySelector('#scoreboard ol'); 
+         const tries = document.querySelectorAll('#scoreboard ol li');
          const triesLength = tries.length;
-         const hearts = 5 - tries.length;
+         const heartsToCreate = totalHearts - tries.length;
     
-         if (triesLength < 5) {
-            createHearts(hearts);
+         if (triesLength < heartsToCreate ) {
+            createHearts(heartsToCreate );
          }
          //Reset score   
          missed = 0;
-    
          };
-        
+      
 
 //listen for the start game button to be pressed   
 startButton.addEventListener('click', () => {
-    const startScreen = document.querySelector('#overlay');
-    startScreen.style.display = 'none';
-    if (startButton.textContent === 'Start Game') {
+    const buttonText = startButton.textContent;
+    if (buttonText === 'Start Game') {
         createHearts(5);
-    } else if (startButton.textContent === 'Reset Game') {
+    } else if (buttonText === 'Reset Game') {
         resetGame();
     }
+    const startScreen = document.querySelector('#overlay');
+    startScreen.style.display = 'none';
 });
 
 //listen for the onscreen keyboard to be clicked
@@ -178,14 +179,12 @@ qwerty.addEventListener('click', e=> {
     if (button.nodeName === 'BUTTON' && button.className !== 'chosen') {
         const letter = button.textContent;
         button.className = 'chosen';
-        const isMatch = checkLetter(letter);
-        if (!isMatch) {
-            const ol = document.querySelector('ol');
-            const lastHeart = ol.lastElementChild;
+        const letterFound = checkLetter(letter);
+        const scoreboardOL = document.querySelector('#scoreboard ol');
+        const heartToRemove = scoreboardOL.lastElementChild;
+        if (!letterFound && heartToRemove) {
             missed ++;
-            if (lastHeart) {
-                ol.removeChild(lastHeart); 
-            }
+            scoreboardOL.removeChild(heartToRemove); 
         }
         checkWin();
     }

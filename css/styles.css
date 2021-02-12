@@ -50,9 +50,10 @@ button {
   font-size: var(--font-size-medium);
   background-color: var(--color-keys-light);
   border-radius: 5px;
-  -webkit-transition: var(--transition);
-  -o-transition: var(--transition);
-  transition: var(--transition);
+  /*Remove transition to resolve flickering issue on page load*/
+  /* -webkit-transition: var(--transition);
+  -o-transition: var(--transition); 
+  transition: var(--transition);*/
 }
 
 .main-container {
@@ -169,3 +170,4 @@ button {
   padding-left: 5px;
   padding-right: 5px;
 }
+
