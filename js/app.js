@@ -158,6 +158,8 @@ const resetGame = () => {
          }
          //Reset score   
          missed = 0;
+
+         //Remove class from start screen
          };
       
 
@@ -171,6 +173,9 @@ startButton.addEventListener('click', () => {
     }
     const startScreen = document.querySelector('#overlay');
     startScreen.style.display = 'none';
+    //Remove win and move class from start screen
+    startScreen.classList.remove('win');
+    startScreen.classList.remove('lose');
 });
 
 //listen for the onscreen keyboard to be clicked
@@ -178,6 +183,8 @@ qwerty.addEventListener('click', e=> {
     const button = e.target;
     if (button.nodeName === 'BUTTON' && button.className !== 'chosen') {
         const letter = button.textContent;
+        /*Add transition to individual button to resolve flickering issue*/
+        button.style.transition = 'all .2s ease-in-out';
         button.className = 'chosen';
         const letterFound = checkLetter(letter);
         const scoreboardOL = document.querySelector('#scoreboard ol');
@@ -187,5 +194,7 @@ qwerty.addEventListener('click', e=> {
             scoreboardOL.removeChild(heartToRemove); 
         }
         checkWin();
+        /*Remove transition from individual button*/
+        button.style.transition = 'none';
     }
 });

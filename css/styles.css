@@ -53,7 +53,7 @@ button {
   /*Remove transition to resolve flickering issue on page load*/
   /* -webkit-transition: var(--transition);
   -o-transition: var(--transition); 
-  transition: var(--transition);*/
+  transition: var(--transition); */
 }
 
 .main-container {
