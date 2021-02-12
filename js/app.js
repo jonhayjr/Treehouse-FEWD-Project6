@@ -16,15 +16,30 @@ const phrases = [
 'Fast and Furious'
 ];
 
+let usedPhrases = [];
+
 //return a random phrase from an array
 const getRandomPhraseAsArray = arr => {
-    const randomNumber = Math.floor(Math.random() * arr.length);
-    const randomPhrase = arr[randomNumber];
+    let randomNumber = Math.floor(Math.random() * arr.length);
+    let randomPhrase = arr[randomNumber];
+
+    /*If word has been used already and all words haven't been used, a new word is selected*/
+    while (usedPhrases.includes(randomPhrase) && usedPhrases.length !== phrases.length) {
+        randomNumber = Math.floor(Math.random() * arr.length);
+        randomPhrase = arr[randomNumber]; 
+    }
+
+    /*If all words have been used, usedPhrases array is reset*/
+    if (usedPhrases.length === phrases.length) {
+        usedPhrases = [];
+    }
+
+    /*Random Phrase is pushed to Used Phrase Array*/
+    usedPhrases.push(randomPhrase);
     return randomPhrase;
 }
 
 const randomPhrase = getRandomPhraseAsArray(phrases);
-
 
 //adds the letters of a string to the display   
 const addPhraseToDisplay = arr => {
@@ -142,7 +157,7 @@ startButton.addEventListener('click', () => {
     }
 });
 
-//list for the onscreen keyboard to be clicked
+//listen for the onscreen keyboard to be clicked
 qwerty.addEventListener('click', e=> {
     const button = e.target;
     if (button.nodeName === 'BUTTON' && button.className !== 'chosen') {
