@@ -1,6 +1,7 @@
 const qwerty = document.querySelector('#qwerty');
 const phrase = document.querySelector('#phrase');
 const startButton = document.querySelector('.btn__reset');
+const h3 = document.createElement('h3');
 let missed = 0;
 const phrases = [
 'New York',
@@ -97,7 +98,7 @@ const checkWin = () => {
     const startOverlay = document.querySelector('div.start');
     const title = document.querySelector('.title');
     const resetText = 'Reset Game';
-
+   
     if (letterTotal === showTotal) {
         startOverlay.classList.add('win');
         title.textContent = 'You won!!!!!';
@@ -108,7 +109,6 @@ const checkWin = () => {
         title.textContent = 'You lost!!!';
         startOverlay.style.display = 'flex';
         startButton.textContent = resetText;
-        const h3 = document.createElement('h3');
         h3.textContent = `The random phrase was ${currentPhrase}.`;
         title.after(h3);
     }
