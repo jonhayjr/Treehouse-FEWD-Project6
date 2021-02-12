@@ -28,9 +28,11 @@ const randomPhrase = getRandomPhraseAsArray(phrases);
 
 //adds the letters of a string to the display   
 const addPhraseToDisplay = arr => {
+        const ul = phrase.firstElementChild;
+        //Clear existing display
+        ul.innerHTML = '';
     for (let i = 0; i < arr.length; i++) {
         const li = document.createElement('li');
-        const ul = phrase.firstElementChild;
         li.textContent = arr[i];
         if (li.textContent !== ' ') {
             li.className = 'letter';
@@ -70,15 +72,30 @@ const checkWin = () => {
     const resetText = 'Reset Game';
 
     if (letterTotal === showTotal) {
-        startOverlay.className = 'win';
+        startOverlay.classList.add('win');
         title.textContent = 'You won!!!!!';
         startOverlay.style.display = 'flex';
         startButton.textContent = resetText;
     } else if (missed > 4) {
-        startOverlay.className = 'lose';
+        startOverlay.classList.add ('lose');
         title.textContent = 'You lost!!!';
         startOverlay.style.display = 'flex';
         startButton.textContent = resetText;
+    }
+}
+
+//Create Heart Images   
+const createHearts = items => {
+    for (let i = 0; i < items; i++) {
+        const ol = document.querySelector('ol');
+        const li = document.createElement('li');
+        const image = document.createElement('img');
+        li.classList.add('tries');
+        image.src = 'images/liveHeart.png';
+        image.height = '35';
+        image.width = '30';
+        li.appendChild(image);
+        ol.appendChild(li);
     }
 }
 
@@ -92,7 +109,7 @@ const resetGame = () => {
         //Remove chosen class from buttons   
         const letterButton = document.querySelectorAll('.keyrow button');
         for (let i = 0; i < letterButton.length; i++) {
-            letterButton[i].className = '';
+            letterButton[i].classList.remove('chosen');
         }
         //Generate random word and add to display
         const randomPhrase = getRandomPhraseAsArray(phrases);
@@ -103,18 +120,10 @@ const resetGame = () => {
          const ol = document.querySelector('ol'); 
          const tries = document.querySelectorAll('ol li');
          const triesLength = tries.length;
+         const hearts = 5 - tries.length;
     
          if (triesLength < 5) {
-             for (let i = 0; i < 5 - tries.length; i++) {
-                 const li = document.createElement('li');
-                 const image = document.createElement('img');
-                 li.className = 'tries';
-                 image.src = 'images/liveHeart.png';
-                 image.height = '35';
-                 image.width = '30';
-                 li.appendChild(image);
-                 ol.appendChild(li);
-             }
+            createHearts(hearts);
          }
          //Reset score   
          missed = 0;
@@ -122,13 +131,13 @@ const resetGame = () => {
          };
         
 
-
-
 //listen for the start game button to be pressed   
 startButton.addEventListener('click', () => {
     const startScreen = document.querySelector('#overlay');
     startScreen.style.display = 'none';
-    if (startButton.textContent === 'Reset Game') {
+    if (startButton.textContent === 'Start Game') {
+        createHearts(5);
+    } else if (startButton.textContent === 'Reset Game') {
         resetGame();
     }
 });
