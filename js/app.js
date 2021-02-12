@@ -13,10 +13,21 @@ const phrases = [
 'Javascript',
 'Santa Barbara',
 'John Cena',
-'Fast and Furious'
+'Fast and Furious',
+'Mister Rogers',
+'Big Bear',
+'Orange County',
+'Physics',
+'Dwayne Johnson',
+'Resistance Bands',
+'Standing Desk',
+'Banana Split',
+'Netflix',
+'Happy Birthday'
 ];
 
 let usedPhrases = [];
+let currentPhrase = '';
 
 //return a random phrase from an array
 const getRandomPhraseAsArray = arr => {
@@ -36,6 +47,7 @@ const getRandomPhraseAsArray = arr => {
 
     /*Random Phrase is pushed to Used Phrase Array*/
     usedPhrases.push(randomPhrase);
+    currentPhrase = randomPhrase;
     return randomPhrase;
 }
 
@@ -96,6 +108,9 @@ const checkWin = () => {
         title.textContent = 'You lost!!!';
         startOverlay.style.display = 'flex';
         startButton.textContent = resetText;
+        const h3 = document.createElement('h3');
+        h3.textContent = `The random phrase was ${currentPhrase}.`;
+        title.after(h3);
     }
 }
 
