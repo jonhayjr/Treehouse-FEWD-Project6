@@ -87,7 +87,7 @@ button {
   color: transparent;
   background: var(--color-neutral-light);
   border-radius: 5px;
-  transition: all 0.3s ease-in;
+  transition: all 1s cubic-bezier(0.1, 0.7, 0.5, 1.0);
 }
 
 .space {
@@ -148,12 +148,24 @@ button {
   color: var(--color-win);
 }
 
+.start a:hover {
+  background-color: var(--color-win);
+  color: #fff;
+}
+
 .win {
   background-color: var(--color-win);
 }
 
 .win a {
   color: var(--color-win);
+  border: solid 2px transparent;
+}
+
+.win a:hover {
+  color: #fff;
+  background-color: #78CF82;
+  border: solid 2px #fff;
 }
 
 .lose {
@@ -162,6 +174,13 @@ button {
 
 .lose a {
   color: var(--color-lose);
+  border: solid 2px transparent;
+}
+
+.lose a:hover {
+  color: #fff;
+  background-color: rgba(158, 107, 107, 0.233);
+  border: solid 2px #fff;
 }
 
 

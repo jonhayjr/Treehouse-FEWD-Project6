@@ -97,16 +97,18 @@ const checkWin = () => {
     const showTotal = show.length;
 
     const startOverlay = document.querySelector('div.start');
-    const title = document.querySelector('.title');
     const resetText = 'Reset Game';
+    const title = document.querySelector('.title');
    
     if (letterTotal === showTotal) {
-        startOverlay.classList.add('win');
+        startOverlay.classList.replace('start', 'win');
         title.textContent = 'You won!!!!!';
         startOverlay.style.display = 'flex';
+        //Clear out h3 text
+        h3.textContent = '';
         startButton.textContent = resetText;
     } else if (missed > 4) {
-        startOverlay.classList.add ('lose');
+        startOverlay.classList.replace('start', 'lose');
         title.textContent = 'You lost!!!';
         startOverlay.style.display = 'flex';
         startButton.textContent = resetText;
@@ -159,7 +161,6 @@ const resetGame = () => {
          //Reset score   
          missed = 0;
 
-         //Remove class from start screen
          };
       
 
@@ -174,8 +175,8 @@ startButton.addEventListener('click', () => {
     const startScreen = document.querySelector('#overlay');
     startScreen.style.display = 'none';
     //Remove win and move class from start screen
-    startScreen.classList.remove('win');
-    startScreen.classList.remove('lose');
+    startScreen.classList.replace('win', 'start');
+    startScreen.classList.replace('lose', 'start');
 });
 
 //listen for the onscreen keyboard to be clicked
