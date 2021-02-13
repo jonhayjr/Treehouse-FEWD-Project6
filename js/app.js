@@ -2,6 +2,8 @@ const qwerty = document.querySelector('#qwerty');
 const phrase = document.querySelector('#phrase');
 const startButton = document.querySelector('.btn__reset');
 const h3 = document.createElement('h3');
+const liveHeart = 'images/liveHeart.png';
+const lostHeart = 'images/lostHeart.png';
 const totalHearts = 5;
 let missed = 0;
 const phrases = [
@@ -107,7 +109,7 @@ const checkWin = () => {
         //Clear out h3 text
         h3.textContent = '';
         startButton.textContent = resetText;
-    } else if (missed > 4) {
+    } else if (missed >= 5) {
         startOverlay.classList.replace('start', 'lose');
         title.textContent = 'You lost!!!';
         startOverlay.style.display = 'flex';
@@ -124,13 +126,15 @@ const createHearts = items => {
         const li = document.createElement('li');
         const image = document.createElement('img');
         li.classList.add('tries');
-        image.src = 'images/liveHeart.png';
+        image.src = liveHeart;
         image.height = '35';
         image.width = '30';
         li.appendChild(image);
         ol.appendChild(li);
     }
 }
+
+
 
 //Reset Game  
 const resetGame = () => {
@@ -150,14 +154,13 @@ const resetGame = () => {
 
     
          //Reset scoreboard hearts
-         const scoreboardOL = document.querySelector('#scoreboard ol'); 
-         const tries = document.querySelectorAll('#scoreboard ol li');
-         const triesLength = tries.length;
-         const heartsToCreate = totalHearts - tries.length;
-    
-         if (triesLength < heartsToCreate ) {
-            createHearts(heartsToCreate );
-         }
+         const scoreboardHearts = document.querySelectorAll('.tries img');
+        for (let i = 0; i < scoreboardHearts.length; i++) {
+            let heartSRC = scoreboardHearts[i].src;
+            if (heartSRC !== liveHeart) {
+                scoreboardHearts[i].src = liveHeart;
+            }
+        }
          //Reset score   
          missed = 0;
 
@@ -189,10 +192,11 @@ qwerty.addEventListener('click', e=> {
         button.className = 'chosen';
         const letterFound = checkLetter(letter);
         const scoreboardOL = document.querySelector('#scoreboard ol');
-        const heartToRemove = scoreboardOL.lastElementChild;
-        if (!letterFound && heartToRemove) {
+        const scoreboardHearts = document.querySelectorAll('.tries img');
+     
+        if (!letterFound && missed <= 5) {
             missed ++;
-            scoreboardOL.removeChild(heartToRemove); 
+            scoreboardHearts[(totalHearts - missed)].src = lostHeart;
         }
         checkWin();
         /*Remove transition from individual button*/
