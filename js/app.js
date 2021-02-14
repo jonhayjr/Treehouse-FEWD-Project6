@@ -105,19 +105,20 @@ const checkWin = () => {
     if (letterTotal === showTotal) {
         startOverlay.classList.replace('start', 'win');
         title.textContent = 'You won!!!!!';
-        startOverlay.style.display = 'flex';
+        setTimeout(() => {startOverlay.style.display = 'flex';}, 500);
         //Clear out h3 text
         h3.textContent = '';
         startButton.textContent = resetText;
     } else if (missed >= 5) {
         startOverlay.classList.replace('start', 'lose');
         title.textContent = 'You lost!!!';
-        startOverlay.style.display = 'flex';
+        setTimeout(() => {startOverlay.style.display = 'flex';}, 500);
         startButton.textContent = resetText;
         h3.textContent = `The random phrase was ${currentPhrase}.`;
         title.after(h3);
-    }
+    }   
 }
+
 
 //Create Heart Images   
 const createHearts = items => {
@@ -190,6 +191,7 @@ qwerty.addEventListener('click', e=> {
         /*Add transition to individual button to resolve flickering issue*/
         button.style.transition = 'all .2s ease-in-out';
         button.className = 'chosen';
+
         const letterFound = checkLetter(letter);
         const scoreboardOL = document.querySelector('#scoreboard ol');
         const scoreboardHearts = document.querySelectorAll('.tries img');
@@ -198,6 +200,8 @@ qwerty.addEventListener('click', e=> {
             missed ++;
             scoreboardHearts[(totalHearts - missed)].src = lostHeart;
         }
+
+    
         checkWin();
         /*Remove transition from individual button*/
         button.style.transition = 'none';
