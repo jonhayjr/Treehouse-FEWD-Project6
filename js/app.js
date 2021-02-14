@@ -1,3 +1,4 @@
+/********Variables*********/
 const qwerty = document.querySelector('#qwerty');
 const phrase = document.querySelector('#phrase');
 const startButton = document.querySelector('.btn__reset');
@@ -29,10 +30,10 @@ const phrases = [
 'Netflix',
 'Happy Birthday'
 ];
-
 let usedPhrases = [];
 let currentPhrase = '';
 
+/********Functions*********/
 //return a random phrase from an array
 const getRandomPhraseAsArray = arr => {
     let randomNumber = Math.floor(Math.random() * arr.length);
@@ -78,7 +79,6 @@ addPhraseToDisplay(randomPhrase);
 
 //check if a letter is in the phrase
 const checkLetter = button => {
-    const ul = phrase.firstElementChild;
     const lis = document.querySelectorAll('ul li');
     let isMatch = null;
     for (let i = 0; i < lis.length; i++) {
@@ -89,7 +89,6 @@ const checkLetter = button => {
     }
     return isMatch;
 }
-
 
 //check if the game has been won or lost
 const checkWin = () => {
@@ -135,49 +134,66 @@ const createHearts = items => {
     }
 }
 
+//Reset letters   
+const resetLetters = () => {
+    const letterDisplay = document.querySelectorAll('#phrase li');
+        for (let i = 0; i < letterDisplay.length; i++) {
+            letterDisplay[i].className = '';
+        }
+}
+
+//Reset buttons   
+const resetButtons = () => {
+    const letterButton = document.querySelectorAll('.keyrow button');
+    for (let i = 0; i < letterButton.length; i++) {
+        letterButton[i].className = '';
+    }
+}
+
+//Reset hearts   
+const resetHearts = () => {
+    const scoreboardHearts = document.querySelectorAll('.tries img');
+    for (let i = 0; i < scoreboardHearts.length; i++) {
+        let heartSRC = scoreboardHearts[i].src;
+        if (heartSRC !== liveHeart) {
+            scoreboardHearts[i].src = liveHeart;
+        }
+    }
+}
 
 
 //Reset Game  
 const resetGame = () => {
         //Remove show class from display   
-        const letterDisplay = document.querySelectorAll('#phrase li');
-        for (let i = 0; i < letterDisplay.length; i++) {
-            letterDisplay[i].className = '';
-        }
+        resetLetters();
+
         //Remove chosen class from buttons   
-        const letterButton = document.querySelectorAll('.keyrow button');
-        for (let i = 0; i < letterButton.length; i++) {
-            letterButton[i].className = '';
-        }
+        resetButtons();
+
         //Generate random word and add to display
         const randomPhrase = getRandomPhraseAsArray(phrases);
         addPhraseToDisplay(randomPhrase);
 
-    
          //Reset scoreboard hearts
-         const scoreboardHearts = document.querySelectorAll('.tries img');
-        for (let i = 0; i < scoreboardHearts.length; i++) {
-            let heartSRC = scoreboardHearts[i].src;
-            if (heartSRC !== liveHeart) {
-                scoreboardHearts[i].src = liveHeart;
-            }
-        }
+        resetHearts();
+
          //Reset score   
          missed = 0;
 
          };
       
-
+/********Event Listeners*********/
 //listen for the start game button to be pressed   
 startButton.addEventListener('click', () => {
     const buttonText = startButton.textContent;
     if (buttonText === 'Start Game') {
-        createHearts(5);
+        createHearts(totalHearts);
     } else if (buttonText === 'Reset Game') {
         resetGame();
     }
     const startScreen = document.querySelector('#overlay');
     startScreen.style.display = 'none';
+
     //Remove win and move class from start screen
     startScreen.classList.replace('win', 'start');
     startScreen.classList.replace('lose', 'start');
@@ -188,6 +204,7 @@ qwerty.addEventListener('click', e=> {
     const button = e.target;
     if (button.nodeName === 'BUTTON' && button.className !== 'chosen') {
         const letter = button.textContent;
+
         /*Add transition to individual button to resolve flickering issue*/
         button.style.transition = 'all .2s ease-in-out';
         button.className = 'chosen';
@@ -201,8 +218,8 @@ qwerty.addEventListener('click', e=> {
             scoreboardHearts[(totalHearts - missed)].src = lostHeart;
         }
 
-    
         checkWin();
+
         /*Remove transition from individual button*/
         button.style.transition = 'none';
     }

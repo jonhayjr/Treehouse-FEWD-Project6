@@ -87,7 +87,7 @@ button {
   color: transparent;
   background: var(--color-neutral-light);
   border-radius: 5px;
-  transition: all 1s cubic-bezier(0.1, 0.7, 0.5, 1.0);
+  transition: all 1s cubic-bezier(0.1, 0.7, 1.0, 1.0);
 }
 
 .space {
@@ -146,6 +146,7 @@ button {
 
 .start a {
   color: var(--color-win);
+  box-shadow: 0 0 10px 5px #fff;
 }
 
 .start a:hover {
@@ -159,13 +160,12 @@ button {
 
 .win a {
   color: var(--color-win);
-  border: solid 2px transparent;
+  box-shadow: 0 0 10px 5px #fff;
 }
 
 .win a:hover {
   color: #fff;
-  background-color: #78CF82;
-  border: solid 2px #fff;
+  background-color: #78cf82f3;
 }
 
 .lose {
@@ -174,15 +174,13 @@ button {
 
 .lose a {
   color: var(--color-lose);
-  border: solid 2px transparent;
+  box-shadow: 0 0 10px 5px #fff;
 }
 
 .lose a:hover {
   color: #fff;
   background-color: rgba(158, 107, 107, 0.233);
-  border: solid 2px #fff;
 }
-
 
 /*Scoreboard*/
 .tries {
